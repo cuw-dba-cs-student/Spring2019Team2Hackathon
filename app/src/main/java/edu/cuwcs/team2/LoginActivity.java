@@ -1,8 +1,17 @@
 package edu.cuwcs.team2;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +37,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +49,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    private TextView registerAccountTV;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -62,10 +73,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+// [END declare_auth]
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        this.registerAccountTV = (TextView)this.findViewById(R.id.registerAccountTV);
+
+        registerAccountTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRegisterUserActivity (v);
+            }
+        });
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -82,6 +107,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+// [END initialize_auth]
+
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -93,6 +123,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+    // [START on_start_check_user]
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser);
+    }
+// [END on_start_check_user]
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -143,11 +183,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+    public void signInBtnPressed(View v) {
+        attemptLogin();
+    }
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
-
+        System.out.println("*** Attempting Login");
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -185,8 +230,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        System.out.println("*** Successful signin.");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                    } else {
+                        System.out.println("*** Login failed.");
+                        showProgress(false);
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        updateUI(null);
+
+                    }
+                }
+            });
+
         }
     }
 
@@ -346,5 +410,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
+    private void updateUI(FirebaseUser user) {
+
+        //hideProgressDialog();
+        if (user != null) {
+
+            /*findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
+            findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
+            findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());*/
+            System.out.println("*** I made it to updateUI logged in status.");
+            Intent i = new Intent(this, IAmLoggedIn.class);
+            this.startActivity(i);
+        } else {
+            System.out.println("*** Login Failed!");
+            /*
+            mStatusTextView.setText(R.string.signed_out);
+            mDetailTextView.setText(null);
+
+            findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
+            findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
+            findViewById(R.id.signedInButtons).setVisibility(View.GONE);*/
+        }
+        //TO-DO Go to next screen
+
+    }
+
+    public void startRegisterUserActivity (View v) {
+        Intent i;
+        i = new Intent(this, RegisterUser.class);
+        this.startActivity(i);
+
+    }
+
 }
 
