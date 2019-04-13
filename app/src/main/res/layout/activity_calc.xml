@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/presentValET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Present Value $"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/intRateET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Interest Rate %"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/numYearsET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number of Years"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onCalculateButtonPressed"
+        android:text="Calculate" />
+
+    <EditText
+        android:id="@+id/futureValET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:ems="10"
+        android:hint="Future Value"
+        android:inputType="numberDecimal" />
+
+</LinearLayout>
