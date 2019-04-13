@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IAmLoggedIn">
+    android:orientation="vertical"
+    tools:context=".IAmLoggedIn" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/toFVM"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Sweet Login Success"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:onClick="toFutureMoneyCalculatorButtonPressed"
+        android:text="To future money money calculator" />
+
+    <Button
+        android:id="@+id/updateProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="toFutureMoneyCalculatorButtonPressed"
+        android:text="Update profile" />
 </LinearLayout>
