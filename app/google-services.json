@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "953895754978",
+    "firebase_url": "https://spring2019hackathon.firebaseio.com",
+    "project_id": "spring2019hackathon",
+    "storage_bucket": "spring2019hackathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953895754978:android:defa43bcdcac7929",
+        "android_client_info": {
+          "package_name": "edu.cuwcs.team2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953895754978-aebduli01h4lbus16stt2hvpls9rp8i4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.cuwcs.team2",
+            "certificate_hash": "740819a64a66fab12084d3ef3d287e676c52152e"
+          }
+        },
+        {
+          "client_id": "953895754978-t5b5q57actsis43t9cacoe9sculvviud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGKXtRNpIXhd4TWU51rKIzOBvujTRh1v0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953895754978-t5b5q57actsis43t9cacoe9sculvviud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
