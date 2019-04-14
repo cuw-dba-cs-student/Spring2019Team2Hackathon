@@ -7,17 +7,37 @@
     android:orientation="vertical"
     tools:context=".IAmLoggedIn" >
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="175dp" />
+
     <Button
         android:id="@+id/toFVM"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="387dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_launcher_background"
         android:onClick="toFutureMoneyCalculatorButtonPressed"
-        android:text="To future money money calculator" />
+        android:text="To future money money calculator"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="144dp" />
 
     <Button
         android:id="@+id/updateProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="384dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_launcher_background"
         android:onClick="toFutureMoneyCalculatorButtonPressed"
-        android:text="Update profile" />
+        android:text="Update profile"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </LinearLayout>

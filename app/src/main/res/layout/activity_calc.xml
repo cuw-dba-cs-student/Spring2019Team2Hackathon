@@ -33,10 +33,15 @@
 
     <Button
         android:id="@+id/calculateButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="397dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_launcher_background"
         android:onClick="onCalculateButtonPressed"
-        android:text="Calculate" />
+        android:text="Calculate"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/futureValET"
